@@ -149,7 +149,7 @@ class Board(object):
         '''
         if len(path) < 2:
             return False
-        elif self.is_path_valid(path) is False:
+        elif self.is_valid_path(path) is False:
             return False
         else:
             for territory in path:

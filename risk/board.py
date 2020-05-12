@@ -1,6 +1,7 @@
 import os
 import random
 from collections import namedtuple
+from collections import deque
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
@@ -161,13 +162,15 @@ class Board(object):
         Returns:
             [int]: a valid path between source and target that has minimum length; this path is guaranteed to exist
         '''
-        list1=risk.definitions.territory_names
-        list2=list(list1.keys())
+
         
         s=[]
         s.append(source)
         q = deque([])
         q.append(s)
+
+        list1=risk.definitions.territory_names
+        list2=list(list1.keys())
         
         if source == target:
             return s

@@ -206,15 +206,16 @@ class Board(object):
         
         while q:
             stack = q.pop()
-            for territory in list2:
-                if territory in self.neighbors(stack[-1]):
-                    if territory == target:
-                        stack.append(target)
-                        return stack
-                    cstack = copy.deepcopy(stack)
-                    cstack.append(territory)
-                    q.appendleft(cstack)
-                    list2.remove(territory)
+            list3 = [territory for territory in board if territory in self.neighbors(stack[-1])]
+            for territory in list3:
+                #if territory in self.neighbors(stack[-1]):
+                if territory == target:
+                    stack.append(target)
+                    return stack
+                cstack = copy.deepcopy(stack)
+                cstack.append(territory)
+                q.appendleft(cstack)
+                list2.remove(territory)
 
 
     def can_fortify(self, source, target):

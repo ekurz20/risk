@@ -2,6 +2,7 @@ import os
 import random
 from collections import namedtuple
 from collections import deque
+import heapdict
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches

@@ -172,7 +172,7 @@ class Board(object):
         armies = 0
         for territory in path:
             if territory == path[0]:
-                next
+                continue
             armies = armies + self.armies(territory)
         return armies
 

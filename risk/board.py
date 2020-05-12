@@ -162,31 +162,27 @@ class Board(object):
         Returns:
             [int]: a valid path between source and target that has minimum length; this path is guaranteed to exist
         '''
-
+        list1=risk.definitions.territory_names
+        list2=list(list1.keys())
         
         s=[]
         s.append(source)
-        q = deque([])
+        q = deque()
         q.append(s)
-
-        list1=risk.definitions.territory_names
-        list2=list(list1.keys())
         
         if source == target:
             return s
         
-        print(source)
         while q:
             stack = q.popleft()
             for territory in list2:
                 if territory in self.neighbors(stack[-1]):
-                    print(territory)
                     if terrirtory == target:
                         stack.append(target)
                         return stack
                     cstack = copy.deepcopy(stack)
-                    cstack.push(territory)
-                    q.enqueue(cstack)
+                    cstack.append(territory)
+                    q.append(cstack)
                     list2.remove(territory)
 
 

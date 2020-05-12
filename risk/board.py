@@ -206,11 +206,11 @@ class Board(object):
         
         while q:
             stack = q.pop()
+            if terrirtory == target:
+                stack.append(target)
+                return stack
             for territory in list2:
                 if territory in self.neighbors(stack[-1]):
-                    if terrirtory == target:
-                        stack.append(target)
-                        return stack
                     cstack = copy.deepcopy(stack)
                     cstack.append(territory)
                     q.appendleft(cstack)

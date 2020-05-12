@@ -123,7 +123,7 @@ class Board(object):
         else:
             for i in range(len(path)-1):
                 territory = path[i]
-                neightboring = risk.definitions.territory_neighbors[territory]
+                neighboring = risk.definitions.territory_neighbors[territory]
                 nextterritory = path[i+1]
                 if nextterritory not in neighboring:
                     return False

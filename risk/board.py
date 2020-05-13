@@ -206,7 +206,7 @@ class Board(object):
         
         while q:
             stack = q.pop()
-            list3 = [territory for territory in board if territory in self.neighbors(stack[-1])]
+            list3 = [territory for territory in list2 if territory in self.neighbors(stack[-1])]
             for territory in list3:
                 #if territory in self.neighbors(stack[-1]):
                 if territory == target:

@@ -292,7 +292,7 @@ class Board(object):
         Returns:
             bool: True if a valid attack path exists between source and target; else False
         '''
-        if cource == target:
+        if source == target:
             return False
         if self._can_attack(source, target) == None:
             return False

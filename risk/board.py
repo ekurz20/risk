@@ -203,7 +203,7 @@ class Board(object):
         s=[]
         s.append(source)
         q=deque([])
-        q.append(s)
+        q.appendleft(s)
         
         if source == 31 and target == 23:
             return [0,0,0]
@@ -214,7 +214,7 @@ class Board(object):
         if source == target:
             return s
         while q:
-            stack = q.popleft()
+            stack = q.pop()
             for territory in list2:
                 if territory in self.neighbors(stack[-1]):
                     if territory == target:
@@ -222,7 +222,7 @@ class Board(object):
                         return stack
                     cstack = copy.deepcopy(stack)
                     cstack.append(territory)
-                    q.append(cstack)
+                    q.appendleft(cstack)
                     list2.remove(territory)
         
 
@@ -261,7 +261,7 @@ class Board(object):
             player_id=self.owner(stack[-1])
             adj=self.neighbors(stack[-1])
             neighbor=[country for country in adj if self.owner(country)==player_id]
-            board_info = [territory for territory in board if territory in neighbor]
+            board_info = [territory for territory in list2 if territory in neighbor]
             for territory in board_info:
                 if territory == target:
                     stack.append(territory)

@@ -9,7 +9,6 @@ from matplotlib.path import Path
 
 import risk.definitions
 from collections import deque
-from queue import PriorityQueue
 import heapdict
 import copy
 
@@ -249,7 +248,7 @@ class Board(object):
         s=[]
         s.append(source)
         q=deque([])
-        q.append(s)
+        q.appendleft(s)
 
         list1 = risk.definitions.territory_names
         list2 = list(list1.keys())
@@ -257,7 +256,7 @@ class Board(object):
         if source == target:
             return s
         while q:
-            stack = q.popleft()
+            stack = q.pop()
             player_id=self.owner(stack[-1])
             adj=self.neighbors(stack[-1])
             neighbor=[country for country in adj if self.owner(country)==player_id]
@@ -268,7 +267,7 @@ class Board(object):
                     return stack
                 copy_start = copy.deepcopy(stack)
                 copy_start.append(territory)
-                q.append(copy_start)
+                q.appendleft(copy_start)
                 list2.remove(territory)
 
 

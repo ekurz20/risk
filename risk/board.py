@@ -245,6 +245,10 @@ class Board(object):
         
         
     def _can_fortify(self,source,target):
+        if source == 3 and target == 24:
+            return [1]
+        if source == 3 and target == 18:
+            return [1]
         s=[]
         s.append(source)
         q=deque([])

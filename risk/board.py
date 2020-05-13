@@ -1,16 +1,17 @@
 import os
 import random
 from collections import namedtuple
-from collections import deque
-from queue import PriorityQueue
-import heapdict
-import copy
+
 
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 from matplotlib.path import Path
 
 import risk.definitions
+from collections import deque
+from queue import PriorityQueue
+import heapdict
+import copy
 
 Territory = namedtuple('Territory', ['territory_id', 'player_id', 'armies'])
 Move = namedtuple('Attack', ['from_territory_id', 'from_armies', 'to_territory_id', 'to_player_id', 'to_armies'])
@@ -195,28 +196,24 @@ class Board(object):
         Returns:
             [int]: a valid path between source and target that has minimum length; this path is guaranteed to exist
         '''
-        start=[]
-        start.append(source)
+        s=[]
+        s.append(source)
         q = deque([])
-        q.append(start)
-
-        board=risk.definitions.territory_names
-        board=list(board.keys())
-
-        if source==target:
-            return start
-
+        q.append(s)
+        
+        if source == target:
+            return s
         while q:
-            current = q.popleft()
-            board_info = [territory for territory in board if territory in self.neighbors(current[-1])]
-            for territory in board_info:
-                if territory == target:
-                    current.append(territory)
-                    return current
-                copy_start = copy.deepcopy(current)
-                copy_start.append(territory)
-                q.append(copy_start)
-                board.remove(territory)
+            stack = q.popleft()
+            for territory in list2:
+                if territory in self.neighbors(stack[-1]):
+                    if territory == target:
+                        stack.append(target)
+                        return stack
+                    cstack = copy.deepcopy(stack)
+                    cstack.push(territory)
+                    q.enqueue(cstack)
+                    list2.remove(territory)
 
 
     def can_fortify(self, source, target):

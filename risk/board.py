@@ -214,7 +214,7 @@ class Board(object):
                         stack.append(target)
                         return stack
                     cstack = copy.deepcopy(stack)
-                    cstack.push(territory)
+                    cstack.append(territory)
                     q.enqueue(cstack)
                     list2.remove(territory)
 

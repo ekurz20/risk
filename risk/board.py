@@ -257,10 +257,6 @@ class Board(object):
             return s
         while q:
             stack = q.pop()
-            player_id=self.owner(stack[-1])
-            adj=self.neighbors(stack[-1])
-            neighbor=[territory for territory in adj if self.owner(territory)==player_id]
-            board_info = [territory for territory in list2 if territory in neighbor]
             for territory in list2:
                 if territory in self.neighbors(stack[-1]) and self.owner(territory)==self.owner(stack[-1]):
                     if territory == target:
@@ -296,6 +292,34 @@ class Board(object):
         Returns:
             bool: True if a valid attack path exists between source and target; else False
         '''
+        if cource == target:
+            return False
+        if self._can_attack(source, target) == None:
+            return False
+        return True
+        
+    def _can_attack(self,source,target):
+        s=[]
+        s.append(source)
+        q=deque([])
+        q.appendleft(s)
+
+        list1 = risk.definitions.territory_names
+        list2 = list(list1.keys())
+
+        if source == target:
+            return s
+        while q:
+            stack = q.pop()
+            for territory in list2:
+                if territory in self.neighbors(stack[-1]) and self.owner(territory)!=self.owner(stack[-1]):
+                    if territory == target:
+                        stack.append(territory)
+                        return stack
+                    copy_start = copy.deepcopy(stack)
+                    copy_start.append(territory)
+                    q.appendleft(copy_start)
+                    list2.remove(territory)
 
 
     # ======================= #

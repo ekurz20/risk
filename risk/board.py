@@ -201,7 +201,7 @@ class Board(object):
         
         s=[]
         s.append(source)
-        q = deque([])
+        q=deque([])
         q.append(s)
         
         if source == target:
@@ -215,7 +215,7 @@ class Board(object):
                         return stack
                     cstack = copy.deepcopy(stack)
                     cstack.append(territory)
-                    q.enqueue(cstack)
+                    q.append(cstack)
                     list2.remove(territory)
 
 
@@ -238,31 +238,30 @@ class Board(object):
         
         
     def _can_fortify(self,source,target):
-        start = []
+        s=[]
         start.append(source)
-        q = deque([])
-        q.append(start)
+        q=deque([])
+        q.append(s)
 
-        board = risk.definitions.territory_names
-        board = list(board.keys())
+        list1 = risk.definitions.territory_names
+        list2 = list(list1.keys())
 
         if source == target:
-            return start
-
+            return s
         while q:
-            current = q.popleft()
-            player_id=self.owner(current[-1])
-            adj=self.neighbors(current[-1])
+            stack = q.popleft()
+            player_id=self.owner(stack[-1])
+            adj=self.neighbors(stack[-1])
             neighbor=[country for country in adj if self.owner(country)==player_id]
             board_info = [territory for territory in board if territory in neighbor]
             for territory in board_info:
                 if territory == target:
-                    current.append(territory)
-                    return current
-                copy_start = copy.deepcopy(current)
+                    stack.append(territory)
+                    return stack
+                copy_start = copy.deepcopy(stack)
                 copy_start.append(territory)
                 q.append(copy_start)
-                board.remove(territory)
+                list2.remove(territory)
 
 
     def cheapest_attack_path(self, source, target):

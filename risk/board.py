@@ -311,15 +311,19 @@ class Board(object):
             return s
         while q:
             stack = q.pop()
-            for territory in list2:
-                if territory in self.neighbors(stack[-1]) and self.owner(stack[-1])!=self.owner(territory):
-                    if territory == target:
-                        stack.append(territory)
-                        return stack
-                    copy_start = copy.deepcopy(stack)
-                    copy_start.append(territory)
-                    q.appendleft(copy_start)
-                    list2.remove(territory)
+            player_id = self.owner(source)
+            adj = self.neighbors(stack[-1])
+            neighbor = [country for country in adj if self.owner(country) != player_id]
+            board_info = [territory for territory in board if territory in neighbor]
+            for territory in board_info: #list2:
+                #if territory in self.neighbors(stack[-1]) and self.owner(stack[-1])!=self.owner(territory):
+                if territory == target:
+                    stack.append(territory)
+                    return stack
+                copy_start = copy.deepcopy(stack)
+                copy_start.append(territory)
+                q.appendleft(copy_start)
+                list2.remove(territory)
 
 
     # ======================= #

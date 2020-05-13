@@ -294,10 +294,6 @@ class Board(object):
         '''
         if source == target:
             return False
-        if source == 3 and target == 24:
-            return not True
-        if source == 3 and target == 18:
-            return not True
         if self._can_attack(source, target) == None:
             return False
         return True

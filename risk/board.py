@@ -239,12 +239,6 @@ class Board(object):
         Returns:
             bool: True if reinforcing the target from the source territory is a valid move
         '''
-        if self._can_fortify(source, target) == None:
-            return False
-        return True
-        
-        
-    def _can_fortify(self,source,target):
         s=[]
         s.append(source)
         q=deque([])
@@ -260,12 +254,12 @@ class Board(object):
             for territory in list2:
                 if territory in self.neighbors(stack[-1]) and self.owner(territory)==self.owner(stack[-1]):
                     if territory == target:
-                        stack.append(territory)
-                        return stack
+                        return True
                     cstack = copy.deepcopy(stack)
                     cstack.append(territory)
                     q.appendleft(cstack)
                     list2.remove(territory)
+        return False
 
 
     def cheapest_attack_path(self, source, target):

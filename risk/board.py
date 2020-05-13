@@ -259,16 +259,17 @@ class Board(object):
             stack = q.pop()
             player_id=self.owner(stack[-1])
             adj=self.neighbors(stack[-1])
-            neighbor=[country for country in adj if self.owner(country)==player_id]
+            neighbor=[territory for territory in adj if self.owner(territory)==player_id]
             board_info = [territory for territory in list2 if territory in neighbor]
-            for territory in board_info:
-                if territory == target:
-                    stack.append(territory)
-                    return stack
-                copy_start = copy.deepcopy(stack)
-                copy_start.append(territory)
-                q.appendleft(copy_start)
-                list2.remove(territory)
+            for territory in list2:
+                if territory in self.neighbors(stack[-1]) and self.owner(territory)==self.owner(stack[-1]):
+                    if territory == target:
+                        stack.append(territory)
+                        return stack
+                    copy_start = copy.deepcopy(stack)
+                    copy_start.append(territory)
+                    q.appendleft(copy_start)
+                    list2.remove(territory)
 
 
     def cheapest_attack_path(self, source, target):

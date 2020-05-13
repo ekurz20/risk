@@ -232,6 +232,37 @@ class Board(object):
         Returns:
             bool: True if reinforcing the target from the source territory is a valid move
         '''
+        if self._fortify(source, target) == None:
+            return False
+        return True
+        
+        
+    def _can_fortify(self,source,target):
+        start = []
+        start.append(source)
+        q = deque([])
+        q.append(start)
+
+        board = risk.definitions.territory_names
+        board = list(board.keys())
+
+        if source == target:
+            return start
+
+        while q:
+            current = q.popleft()
+            player_id=self.owner(current[-1])
+            adj=self.neighbors(current[-1])
+            neighbor=[country for country in adj if self.owner(country)==player_id]
+            board_info = [territory for territory in board if territory in neighbor]
+            for territory in board_info:
+                if territory == target:
+                    current.append(territory)
+                    return current
+                copy_start = copy.deepcopy(current)
+                copy_start.append(territory)
+                q.append(copy_start)
+                board.remove(territory)
 
 
     def cheapest_attack_path(self, source, target):

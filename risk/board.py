@@ -201,7 +201,7 @@ class Board(object):
         
         s=[]
         s.append(source)
-        q=deque([])
+        q=deque()
         q.appendleft(s)
         
         if source == 31 and target == 23:
@@ -241,7 +241,7 @@ class Board(object):
         '''
         s=[]
         s.append(source)
-        q=deque([])
+        q=deque()
         q.appendleft(s)
 
         list1 = risk.definitions.territory_names
@@ -288,14 +288,9 @@ class Board(object):
         '''
         if source == target:
             return False
-        if self._can_attack(source, target) == None:
-            return False
-        return True
-        
-    def _can_attack(self,source,target):
         s=[]
         s.append(source)
-        q=deque([])
+        q=deque()
         q.appendleft(s)
 
         list1 = risk.definitions.territory_names
@@ -306,14 +301,14 @@ class Board(object):
         while q:
             stack = q.pop()
             for territory in list2:
-                if territory in self.neighbors(stack[-1]) and self.hostile_neighbors(stack[-1]):
+                if (territory in self.neighbors(stack[-1]) and self.owner(territory)!=self.owner(source)):
                     if territory == target:
-                        stack.append(territory)
-                        return stack
+                        return True
                     cstack = copy.deepcopy(stack)
                     cstack.append(territory)
                     q.appendleft(cstack)
                     list2.remove(territory)
+        return False
 
 
     # ======================= #

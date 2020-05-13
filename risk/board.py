@@ -195,29 +195,28 @@ class Board(object):
         Returns:
             [int]: a valid path between source and target that has minimum length; this path is guaranteed to exist
         '''
-        list1=risk.definitions.territory_names
-        list2=list(list1.keys())
-        
-        s=[]
-        s.append(source)
-        q = deque()
-        q.appendleft(s)
-        
-        if source == target:
-            return s
-        
+        start=[]
+        start.append(source)
+        q = deque([])
+        q.append(start)
+
+        board=risk.definitions.territory_names
+        board=list(board.keys())
+
+        if source==target:
+            return start
+
         while q:
-            stack = q.pop()
-            list3 = [territory for territory in list2 if territory in self.neighbors(stack[-1])]
-            for territory in list3:
-                #if territory in self.neighbors(stack[-1]):
+            current = q.popleft()
+            board_info = [territory for territory in board if territory in self.neighbors(current[-1])]
+            for territory in board_info:
                 if territory == target:
-                    stack.append(target)
-                    return stack
-                cstack = copy.deepcopy(stack)
-                cstack.append(territory)
-                q.appendleft(cstack)
-                list2.remove(territory)
+                    current.append(territory)
+                    return current
+                copy_start = copy.deepcopy(current)
+                copy_start.append(territory)
+                q.append(copy_start)
+                board.remove(territory)
 
 
     def can_fortify(self, source, target):

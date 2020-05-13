@@ -262,9 +262,9 @@ class Board(object):
                     if territory == target:
                         stack.append(territory)
                         return stack
-                    copy_start = copy.deepcopy(stack)
-                    copy_start.append(territory)
-                    q.appendleft(copy_start)
+                    cstack = copy.deepcopy(stack)
+                    cstack.append(territory)
+                    q.appendleft(cstack)
                     list2.remove(territory)
 
 
@@ -316,9 +316,9 @@ class Board(object):
                     if territory == target:
                         stack.append(territory)
                         return stack
-                    copy_start = copy.deepcopy(stack)
-                    copy_start.append(territory)
-                    q.appendleft(copy_start)
+                    cstack = copy.deepcopy(stack)
+                    cstack.append(territory)
+                    q.appendleft(cstack)
                     list2.remove(territory)
 
 

@@ -314,7 +314,7 @@ class Board(object):
             player_id = self.owner(source)
             adj = self.neighbors(stack[-1])
             neighbor = [country for country in adj if self.owner(country) != player_id]
-            board_info = [territory for territory in board if territory in neighbor]
+            board_info = [territory for territory in list2 if territory in neighbor]
             for territory in board_info: #list2:
                 #if territory in self.neighbors(stack[-1]) and self.owner(stack[-1])!=self.owner(territory):
                 if territory == target:

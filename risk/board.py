@@ -312,7 +312,7 @@ class Board(object):
         while q:
             stack = q.pop()
             for territory in list2:
-                if territory in self.neighbors(stack[-1]) and self.owner(territory)!=self.owner(stack[-1]):
+                if territory in self.neighbors(stack[-1]) and self.owner(stack[-1])!=self.owner(territory):
                     if territory == target:
                         stack.append(territory)
                         return stack

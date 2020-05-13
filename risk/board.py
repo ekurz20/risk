@@ -2,6 +2,7 @@ import os
 import random
 from collections import namedtuple
 from collections import deque
+from queue import PriorityQueue
 import heapdict
 import copy
 

@@ -275,6 +275,32 @@ class Board(object):
         Returns:
             [int]: a list of territory_ids representing the valid attack path; if no path exists, then it returns None instead
         '''
+        if self.can_attack(source, target) == False:
+            return None
+        dictionary={}
+        dictionary[source]=[source]
+        q = heapdict.heapdict()
+        q[source] = 0
+        visited = []
+        visited.append(source)
+        
+        while q:
+            stack, priority = q.popitem()
+            for territory in self.neighbors(stack):
+                if (territory not in visited and self.owner(territory)!=self.owner(source)):
+                    if territory == target:
+                        dictionary[stack].append(territory)
+                        return dictionary[stack]
+                    cstack = copy.deepcopy(dictionary[stack])
+                    cstack.append(territory)
+                    prioritypath = self.armies(territory) + priority
+                    if territory not in q:
+                        dictionary[territory]=cstack
+                        q[territory]= self.armies(territory) + priority
+                    elif prioritypath <= q[territory]:
+                        dictionary[territory]=cstack
+                        q[territory]=prioritypath        
+            visited.append(territory)
 
 
     def can_attack(self, source, target):

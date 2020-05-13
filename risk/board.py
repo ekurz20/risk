@@ -232,7 +232,7 @@ class Board(object):
         Returns:
             bool: True if reinforcing the target from the source territory is a valid move
         '''
-        if self._fortify(source, target) == None:
+        if self._can_fortify(source, target) == None:
             return False
         return True
         
